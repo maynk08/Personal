@@ -1,0 +1,75 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens (notes/decisions.md, P1). Both themes use the same names; the root layout sets data-theme on <html>
+ * from the CMS setting. Dark is the default.
+ */
+:root,
+[data-theme='dark'] {
+  --background: #0b0d10;
+  --surface: #12151a;
+  --border: #1f242c;
+  --foreground: #e6e8eb;
+  --muted: #8b93a1;
+  --accent: #3ddc97;
+  --on-accent: #06261a;
+  /* Below text contrast on purpose: only for decoration hidden from assistive tech (the // in labels, the dot grid). */
+  --decor: #4a5361;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --background: #fafaf7;
+  --surface: #ffffff;
+  --border: #e4e4de;
+  --foreground: #16181d;
+  --muted: #5f6670;
+  --accent: #0f7a55;
+  --on-accent: #ffffff;
+  --decor: #c9ccc4;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-decor: var(--decor);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@layer base {
+  html {
+    background-color: var(--background);
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* Section jumps land below the sticky header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}

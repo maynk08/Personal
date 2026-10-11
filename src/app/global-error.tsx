@@ -10,7 +10,11 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
         <div role="alert" className="flex max-w-md flex-col items-start gap-4">
           <h1 className="text-3xl font-medium tracking-tight">This site is temporarily unavailable</h1>
           <p className="text-muted">Try again in a moment.</p>
-          <button type="button" onClick={reset} className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent">
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition hover:opacity-90 motion-safe:active:scale-98"
+          >
             Try again
           </button>
         </div>

@@ -22,7 +22,7 @@ export default async function ProjectsPage() {
         <h1 className="text-3xl font-medium tracking-tight sm:text-5xl">Projects</h1>
         <p className="text-muted">{projects.length === 1 ? '1 project' : `${projects.length} projects`}</p>
       </header>
-      {projects.length > 0 && <ProjectGrid projects={projects} />}
+      {projects.length > 0 && <ProjectGrid projects={projects} isPageContent />}
     </div>
   );
 }

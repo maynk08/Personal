@@ -1,5 +1,6 @@
 import { MediaImage } from '@/components/content/media-image';
 import { PageSection } from '@/components/layout/page-section';
+import { Reveal } from '@/components/motion/reveal';
 import { formatYearMonthRange } from '@/lib/utils/format-date';
 
 import type { Section } from '@/lib/api/public-schemas';
@@ -13,8 +14,8 @@ export function EducationSection({ index, section }: EducationSectionProps) {
   return (
     <PageSection id="education" index={index} label="education" heading={section.heading}>
       <ul className="flex flex-col gap-6">
-        {section.items.map((entry) => (
-          <li key={entry.id} className="flex gap-4">
+        {section.items.map((entry, position) => (
+          <Reveal as="li" key={entry.id} index={position} className="flex gap-4">
             {entry.logo !== null && (
               <MediaImage
                 image={entry.logo}
@@ -35,7 +36,7 @@ export function EducationSection({ index, section }: EducationSectionProps) {
               </p>
               {entry.description !== null && <p className="mt-1 max-w-3xl">{entry.description}</p>}
             </div>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </PageSection>

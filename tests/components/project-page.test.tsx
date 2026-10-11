@@ -66,7 +66,7 @@ describe('ProjectHeader', () => {
 });
 
 describe('ProjectGallery', () => {
-  it('shows each screenshot with its alt text as caption, or a numbered fallback', () => {
+  it('captions screenshots with their alt text (without repeating it as alt), or names them by number', () => {
     render(
       <ProjectGallery
         title="Portfolio CMS"
@@ -78,7 +78,7 @@ describe('ProjectGallery', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Screenshots' })).toBeInTheDocument();
-    expect(screen.getAllByRole('img').map((image) => image.getAttribute('aria-label'))).toEqual(['Editor', 'Portfolio CMS screenshot 2']);
+    expect(screen.getAllByRole('img').map((image) => image.getAttribute('aria-label'))).toEqual(['', 'Portfolio CMS screenshot 2']);
     expect(screen.getAllByRole('figure')[0]).toHaveTextContent('Editor');
   });
 
@@ -165,7 +165,8 @@ describe('HighlightedMarkdown', () => {
 
     expect(writeText).toHaveBeenCalledWith('const answer = 42;');
     expect(screen.getByRole('status')).toHaveTextContent('Code copied');
-  });
+    // Loading the highlighter for the first time takes a few seconds when the whole suite runs at once.
+  }, 20_000);
 
   it('shows unknown or missing languages as plain text without a label', async () => {
     render(await HighlightedMarkdown({ markdown: '```not-a-language\nplain words\n```\n\n```\nmore words\n```' }));

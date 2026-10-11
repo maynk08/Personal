@@ -16,7 +16,7 @@ export function ProjectPager({ previous, next }: AdjacentProjects) {
                 className="group flex flex-col gap-1 rounded-xl border border-border p-4 transition-colors hover:border-accent"
               >
                 <span className="inline-flex items-center gap-1 font-mono text-xs text-muted">
-                  <ArrowLeftIcon aria-hidden="true" className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
+                  <ArrowLeftIcon aria-hidden="true" className="size-3.5 transition-transform motion-safe:group-hover:-translate-x-0.5" />
                   Previous<span className="sr-only"> project: </span>
                 </span>
                 <span className="font-medium">{previous.title}</span>
@@ -31,7 +31,7 @@ export function ProjectPager({ previous, next }: AdjacentProjects) {
               >
                 <span className="inline-flex items-center gap-1 font-mono text-xs text-muted">
                   Next<span className="sr-only"> project: </span>
-                  <ArrowRightIcon aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRightIcon aria-hidden="true" className="size-3.5 transition-transform motion-safe:group-hover:translate-x-0.5" />
                 </span>
                 <span className="font-medium">{next.title}</span>
               </Link>

@@ -37,7 +37,7 @@ export function ProjectHeader({ project }: { project: Project }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent"
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition hover:opacity-90 motion-safe:active:scale-98"
             >
               <ExternalLinkIcon aria-hidden="true" className="size-4" />
               Live site
@@ -49,7 +49,7 @@ export function ProjectHeader({ project }: { project: Project }) {
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent"
+              className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm text-foreground transition hover:border-accent motion-safe:active:scale-98"
             >
               <CodeIcon aria-hidden="true" className="size-4" />
               Source

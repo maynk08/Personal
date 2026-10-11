@@ -3,6 +3,7 @@ import { BriefcaseBusinessIcon, LanguagesIcon, MapPinIcon } from 'lucide-react';
 import { Markdown } from '@/components/content/markdown';
 import { MediaImage } from '@/components/content/media-image';
 import { PageSection } from '@/components/layout/page-section';
+import { Reveal } from '@/components/motion/reveal';
 
 import type { Profile } from '@/lib/api/public-schemas';
 import type { LucideIcon } from 'lucide-react';
@@ -33,12 +34,14 @@ export function AboutSection({ index, heading, profile }: AboutSectionProps) {
   const chips = details(profile);
   return (
     <PageSection id="about" index={index} label="about" heading={heading}>
-      <div className="grid gap-10 md:grid-cols-3">
+      <Reveal className="grid gap-10 md:grid-cols-3">
         {profile.photo !== null && (
           <MediaImage
             image={profile.photo}
             fallbackAlt={`Photo of ${profile.name}`}
             sizes="(min-width: 768px) 320px, 100vw"
+            // Right after the hero, the photo is the largest thing on a phone's first screen, so it loads first.
+            priority={index === 1}
             className="aspect-square w-full max-w-xs rounded-xl border border-border"
           />
         )}
@@ -58,7 +61,7 @@ export function AboutSection({ index, heading, profile }: AboutSectionProps) {
             </ul>
           )}
         </div>
-      </div>
+      </Reveal>
     </PageSection>
   );
 }

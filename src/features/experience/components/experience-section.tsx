@@ -1,6 +1,7 @@
 import { MediaImage } from '@/components/content/media-image';
 import { TagList } from '@/components/content/tag-list';
 import { PageSection } from '@/components/layout/page-section';
+import { Reveal } from '@/components/motion/reveal';
 import { currentYearMonth, formatDuration, formatYearMonthRange } from '@/lib/utils/format-date';
 
 import type { Section } from '@/lib/api/public-schemas';
@@ -16,10 +17,10 @@ export function ExperienceSection({ index, section }: ExperienceSectionProps) {
   return (
     <PageSection id="experience" index={index} label="experience" heading={section.heading}>
       <ol className="flex flex-col border-l border-border">
-        {section.items.map((job) => {
+        {section.items.map((job, position) => {
           const duration = formatDuration(job.startDate, job.endDate, today);
           return (
-            <li key={job.id} className="relative pb-10 pl-6 last:pb-0">
+            <Reveal as="li" key={job.id} index={position} className="relative pb-10 pl-6 last:pb-0">
               <span aria-hidden="true" className="absolute top-2 -left-1.5 size-3 rounded-full border-2 border-accent bg-background" />
               <p className="font-mono text-xs text-muted">
                 {formatYearMonthRange(job.startDate, job.endDate)}
@@ -65,7 +66,7 @@ export function ExperienceSection({ index, section }: ExperienceSectionProps) {
               <div className="mt-4">
                 <TagList tags={job.techStack} label={`Tech used at ${job.company}`} />
               </div>
-            </li>
+            </Reveal>
           );
         })}
       </ol>

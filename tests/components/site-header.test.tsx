@@ -83,11 +83,11 @@ describe('SiteFooter', () => {
     render(<SiteFooter site={site} />);
     const links = within(screen.getByRole('list', { name: 'Social links' })).getAllByRole('link');
 
-    expect(links.map((link) => link.getAttribute('aria-label'))).toEqual([
-      'GitHub (opens in a new tab)',
-      'LinkedIn (opens in a new tab)',
-      'Send an email',
-    ]);
+    // Named by hidden text; the icons themselves are hidden from assistive tech.
+    const list = within(screen.getByRole('list', { name: 'Social links' }));
+    expect(list.getByRole('link', { name: 'GitHub (opens in a new tab)' })).toBe(links[0]);
+    expect(list.getByRole('link', { name: 'LinkedIn (opens in a new tab)' })).toBe(links[1]);
+    expect(list.getByRole('link', { name: 'Send an email' })).toBe(links[2]);
     expect(links[0]).toHaveAttribute('target', '_blank');
     expect(links[2]).not.toHaveAttribute('target');
     expect(screen.getByRole('link', { name: 'Back to top' })).toHaveAttribute('href', '#top');

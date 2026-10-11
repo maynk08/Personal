@@ -32,7 +32,7 @@ export function HeroSection({ profile, hasContact }: HeroSectionProps) {
               href={profile.resume.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent"
+              className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition hover:opacity-90 motion-safe:active:scale-98"
             >
               <FileTextIcon aria-hidden="true" className="size-4" />
               Résumé (PDF)
@@ -42,7 +42,7 @@ export function HeroSection({ profile, hasContact }: HeroSectionProps) {
           {hasContact && (
             <a
               href="#contact"
-              className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm text-foreground hover:border-accent"
+              className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm text-foreground transition hover:border-accent motion-safe:active:scale-98"
             >
               Get in touch
             </a>

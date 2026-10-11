@@ -4,10 +4,10 @@ import { SendIcon } from 'lucide-react';
 import { useActionState, useEffect, useRef } from 'react';
 
 import { sendContactMessage } from '@/features/contact/actions';
-import { CONTACT_LIMITS, INITIAL_CONTACT_STATE } from '@/features/contact/schemas';
+import { CONTACT_LIMITS, INITIAL_CONTACT_STATE } from '@/features/contact/form-state';
 import { cn } from '@/lib/utils/cn';
 
-import type { ContactField, ContactFormState } from '@/features/contact/schemas';
+import type { ContactField, ContactFormState } from '@/features/contact/form-state';
 
 const FIELD_ORDER: ContactField[] = ['name', 'email', 'subject', 'message'];
 
@@ -103,7 +103,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent disabled:opacity-70"
+        className="inline-flex w-fit items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition hover:opacity-90 disabled:opacity-70 motion-safe:active:scale-98"
       >
         <SendIcon aria-hidden="true" className="size-4" />
         {isPending ? 'Sending…' : 'Send message'}

@@ -8,7 +8,7 @@ import { postPublic } from '@/lib/api/public-api';
 
 import { contactSchema } from './schemas';
 
-import type { ContactField, ContactFormState } from './schemas';
+import type { ContactField, ContactFormState } from './form-state';
 
 const CONTACT_FIELDS: ContactField[] = ['name', 'email', 'subject', 'message'];
 const RATE_LIMITED_MESSAGE = 'You have sent several messages recently. Try again in an hour, or use the email address on this page.';

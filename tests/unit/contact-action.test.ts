@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { sendContactMessage } from '@/features/contact/actions';
-import { INITIAL_CONTACT_STATE } from '@/features/contact/schemas';
+import { INITIAL_CONTACT_STATE } from '@/features/contact/form-state';
 import { postPublic } from '@/lib/api/public-api';
 
 vi.mock('@/lib/api/public-api', () => ({ postPublic: vi.fn() }));

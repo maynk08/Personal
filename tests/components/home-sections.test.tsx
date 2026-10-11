@@ -8,26 +8,15 @@ import { ContactForm } from '@/features/contact/components/contact-form';
 import { TypingLine } from '@/features/hero/components/typing-line';
 import { ProjectCard } from '@/features/projects/components/project-card';
 
-import type { ContactFormState } from '@/features/contact/schemas';
+import { setReducedMotion } from '../helpers/browser-mocks';
+
+import type { ContactFormState } from '@/features/contact/form-state';
 import type { Profile } from '@/lib/api/public-schemas';
 
 vi.mock('next/image', () => ({ default: ({ alt }: { alt: string }) => <span role="img" aria-label={alt} /> }));
 vi.mock('@/features/contact/actions', () => ({ sendContactMessage: vi.fn() }));
 
 const { sendContactMessage } = await import('@/features/contact/actions');
-
-function setReducedMotion(isReduced: boolean): void {
-  window.matchMedia = vi.fn((query: string) => ({
-    matches: isReduced,
-    media: query,
-    onchange: null,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    dispatchEvent: vi.fn(() => false),
-  }));
-}
 
 // Each step of the animation schedules the next only after React re-renders, so time moves in small steps.
 function advanceInSteps(totalMs: number, stepMs = 10): void {

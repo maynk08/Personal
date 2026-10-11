@@ -1,6 +1,7 @@
 import { HighlightedMarkdown } from '@/components/content/highlighted-markdown';
 import { MediaImage } from '@/components/content/media-image';
 import { Breadcrumbs } from '@/components/layout/breadcrumbs';
+import { Reveal } from '@/components/motion/reveal';
 import { ProjectGallery } from '@/features/projects/components/project-gallery';
 import { ProjectHeader } from '@/features/projects/components/project-header';
 import { ProjectPager } from '@/features/projects/components/project-pager';
@@ -48,9 +49,15 @@ export default async function ProjectPage({ params }: PageProps<'/projects/[slug
           className="aspect-video w-full rounded-xl border border-border"
         />
       )}
-      {project.description !== null && <HighlightedMarkdown markdown={project.description} />}
+      {project.description !== null && (
+        <Reveal>
+          <HighlightedMarkdown markdown={project.description} />
+        </Reveal>
+      )}
       <ProjectGallery title={project.title} images={project.gallery} />
-      <ProjectPager {...findAdjacentProjects(projects, project.slug)} />
+      <Reveal>
+        <ProjectPager {...findAdjacentProjects(projects, project.slug)} />
+      </Reveal>
     </article>
   );
 }

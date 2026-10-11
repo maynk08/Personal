@@ -2,6 +2,7 @@ import { ExternalLinkIcon } from 'lucide-react';
 
 import { MediaImage } from '@/components/content/media-image';
 import { PageSection } from '@/components/layout/page-section';
+import { Reveal } from '@/components/motion/reveal';
 import { currentYearMonth, formatYearMonth } from '@/lib/utils/format-date';
 
 import type { Section } from '@/lib/api/public-schemas';
@@ -17,10 +18,10 @@ export function CertificationsSection({ index, section }: CertificationsSectionP
   return (
     <PageSection id="certifications" index={index} label="certifications" heading={section.heading}>
       <ul className="grid gap-4 md:grid-cols-2">
-        {section.items.map((certificate) => {
+        {section.items.map((certificate, position) => {
           const isExpired = certificate.expiryDate !== null && certificate.expiryDate < today;
           return (
-            <li key={certificate.id} className="flex gap-4 rounded-xl border border-border bg-surface p-4">
+            <Reveal as="li" key={certificate.id} index={position} className="flex gap-4 rounded-xl border border-border bg-surface p-4">
               {certificate.badge !== null && (
                 <MediaImage
                   image={certificate.badge}
@@ -54,7 +55,7 @@ export function CertificationsSection({ index, section }: CertificationsSectionP
                   </a>
                 )}
               </div>
-            </li>
+            </Reveal>
           );
         })}
       </ul>

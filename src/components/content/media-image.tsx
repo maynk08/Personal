@@ -11,14 +11,26 @@ type MediaImageProps = {
   // How wide the image is shown, for choosing a size: "(min-width: 768px) 320px, 100vw".
   sizes: string;
   className?: string;
+  // For the image itself, e.g. a hover zoom inside the box.
+  imageClassName?: string;
   priority?: boolean;
 };
 
 // An uploaded image in a box sized by its parent (object-cover), so missing dimensions never shift the layout.
-export function MediaImage({ image, fallbackAlt, sizes, className, priority = false }: MediaImageProps) {
+export function MediaImage({ image, fallbackAlt, sizes, className, imageClassName, priority = false }: MediaImageProps) {
   return (
     <div className={cn('relative overflow-hidden', className)}>
-      <Image src={image.url} alt={image.altText ?? fallbackAlt} fill sizes={sizes} priority={priority} className="object-cover" />
+      <Image
+        src={image.url}
+        alt={image.altText ?? fallbackAlt}
+        fill
+        sizes={sizes}
+        // The page's main image: fetched early and first, never lazily.
+        preload={priority}
+        loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={priority ? 'high' : 'auto'}
+        className={cn('object-cover', imageClassName)}
+      />
     </div>
   );
 }

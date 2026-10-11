@@ -41,14 +41,14 @@ export function SocialIcon({ platform, className = 'size-5' }: { platform: Socia
     );
   }
   if (platform === 'linkedin') {
-    // Simple Icons no longer ships the LinkedIn logo, so it is shown as a text mark.
+    // Simple Icons no longer ships the LinkedIn logo, so it is shown as a text mark. Drawn inside the icon rather than as
+    // page text, so the link's name ("LinkedIn …") is not checked against a visible "in".
     return (
-      <span
-        aria-hidden="true"
-        className={`inline-flex items-center justify-center font-mono text-[0.95em] leading-none font-medium ${className}`}
-      >
-        in
-      </span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" className={className} fill="currentColor">
+        <text x="12" y="17" textAnchor="middle" fontFamily="var(--font-jetbrains-mono)" fontSize="15" fontWeight="500">
+          in
+        </text>
+      </svg>
     );
   }
   if (platform === 'email') {

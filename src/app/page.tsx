@@ -1,32 +1,45 @@
-import { SectionLabel } from '@/components/layout/section-label';
+import { AboutSection } from '@/features/about/components/about-section';
+import { CertificationsSection } from '@/features/certifications/components/certifications-section';
+import { ContactSection } from '@/features/contact/components/contact-section';
+import { EducationSection } from '@/features/education/components/education-section';
+import { ExperienceSection } from '@/features/experience/components/experience-section';
+import { HeroSection } from '@/features/hero/components/hero-section';
 import { getHome } from '@/features/home/queries';
+import { ProjectsSection } from '@/features/projects/components/projects-section';
+import { SkillsSection } from '@/features/skills/components/skills-section';
 
-// Placeholder until P3: the visible sections in the admin's order, each with its label and heading.
+import type { Profile, Section } from '@/lib/api/public-schemas';
+
+function renderSection(section: Section, index: number, profile: Profile, hasContact: boolean) {
+  switch (section.key) {
+    case 'hero':
+      return <HeroSection key="hero" profile={profile} hasContact={hasContact} />;
+    case 'about':
+      return <AboutSection key="about" index={index} heading={section.heading} profile={profile} />;
+    case 'experience':
+      return <ExperienceSection key="experience" index={index} section={section} />;
+    case 'projects':
+      return <ProjectsSection key="projects" index={index} section={section} />;
+    case 'skills':
+      return <SkillsSection key="skills" index={index} section={section} />;
+    case 'education':
+      return <EducationSection key="education" index={index} section={section} />;
+    case 'certifications':
+      return <CertificationsSection key="certifications" index={index} section={section} />;
+    case 'contact':
+      return <ContactSection key="contact" index={index} heading={section.heading} profile={profile} />;
+  }
+}
+
+// The visible sections in the admin's order; every section but the hero is numbered ("03 // projects").
 export default async function HomePage() {
   const { profile, sections } = await getHome();
-  // Every section but the hero gets a number, in display order.
   const numbered = sections.filter((section) => section.key !== 'hero').map((section) => section.key);
+  const hasContact = numbered.includes('contact');
 
   return (
     <div className="flex flex-col">
-      {sections.map((section) => {
-        if (section.key === 'hero') {
-          return (
-            <section key={section.key} id="hero" aria-label="Introduction" className="py-20">
-              <h1 className="text-4xl font-medium tracking-tight sm:text-5xl">{profile.name}</h1>
-              <p className="mt-3 text-lg text-muted">{profile.headline}</p>
-            </section>
-          );
-        }
-        return (
-          <section key={section.key} id={section.key} aria-labelledby={`${section.key}-heading`} className="border-t border-border py-16">
-            <SectionLabel index={numbered.indexOf(section.key) + 1} name={section.key} />
-            <h2 id={`${section.key}-heading`} className="mt-2 text-2xl font-medium tracking-tight">
-              {section.heading}
-            </h2>
-          </section>
-        );
-      })}
+      {sections.map((section) => renderSection(section, numbered.indexOf(section.key) + 1, profile, hasContact))}
     </div>
   );
 }

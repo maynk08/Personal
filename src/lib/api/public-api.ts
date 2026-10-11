@@ -62,3 +62,36 @@ export async function getPublic<T>(path: string, schema: z.ZodType<T>): Promise<
   }
   return data.data;
 }
+
+export interface PublicPostResult {
+  status: number;
+  // The backend's field errors for a 422, keyed by field.
+  fieldErrors: Record<string, string>;
+}
+
+// Sends data to the public API (the contact form). Returns the status instead of throwing, so the form can explain it.
+export async function postPublic(path: string, body: unknown, headers: Record<string, string> = {}): Promise<PublicPostResult> {
+  let response: Response;
+  try {
+    response = await fetch(`${env.backendUrl}${PUBLIC_API_PREFIX}${path}`, {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-Request-Id': crypto.randomUUID(), ...headers },
+      body: JSON.stringify(body),
+      cache: 'no-store',
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    });
+  } catch (error) {
+    unstable_rethrow(error);
+    return { status: 0, fieldErrors: {} };
+  }
+  const fieldErrors: Record<string, string> = {};
+  if (response.status === 422) {
+    const errors = z
+      .object({ errors: z.array(z.object({ field: z.string(), message: z.string() })) })
+      .safeParse(await response.json().catch(() => null));
+    for (const { field, message } of errors.success ? errors.data.errors : []) {
+      fieldErrors[field] ??= message;
+    }
+  }
+  return { status: response.status, fieldErrors };
+}

@@ -87,8 +87,21 @@ export async function seedContent(): Promise<void> {
   await call(token, 'POST', '/projects', {
     title: 'Portfolio CMS',
     summary: 'The CMS behind this site.',
+    role: 'Solo',
     techStack: ['Next.js'],
+    description: [
+      '## How it works',
+      '',
+      'Content is saved through the **admin API**.',
+      '',
+      '```ts',
+      'const answer = 42;',
+      '```',
+      '',
+      '<script>alert("x")</script>',
+    ].join('\n'),
     coverImage: mediaId('ocean.png'),
+    gallery: [mediaId('ocean.png'), mediaId('forest.png')],
     isFeatured: true,
     repoUrl: 'https://github.com/ada/cms',
   });

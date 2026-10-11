@@ -6,20 +6,29 @@ import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
 import { env } from '@/config/env';
 import { getSite } from '@/features/site/queries';
+import { THEME_COLORS, siteDescription, siteName } from '@/lib/seo/metadata';
 import { cn } from '@/lib/utils/cn';
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
 const jetBrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' });
 
+// Defaults for every page; each page adds its own canonical address and share-preview tags.
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite();
-  const name = site.name === '' ? 'Portfolio' : site.name;
+  const name = siteName(site);
   return {
     metadataBase: new URL(env.siteUrl),
     title: { default: name, template: `%s · ${name}` },
+    description: siteDescription(site),
+    applicationName: name,
   };
+}
+
+export async function generateViewport(): Promise<Viewport> {
+  const site = await getSite();
+  return { themeColor: THEME_COLORS[site.theme] };
 }
 
 // The theme comes from the CMS and is set on the server, so the page never flashes the other theme.

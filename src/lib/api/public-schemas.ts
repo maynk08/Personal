@@ -41,6 +41,8 @@ export type SocialLink = z.infer<typeof socialLinkSchema>;
 export const siteSchema = z.object({
   theme: z.enum(['dark', 'light']),
   name: z.string(),
+  headline: z.string(),
+  photo: imageSchema.nullable(),
   nav: z.array(z.object({ key: z.enum(SECTION_KEYS), heading: z.string() })),
   socialLinks: z.array(socialLinkSchema),
   resume: documentSchema.nullable(),

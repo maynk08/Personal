@@ -2,7 +2,7 @@ import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { PageSection } from '@/components/layout/page-section';
-import { ProjectCard } from '@/features/projects/components/project-card';
+import { ProjectGrid } from '@/features/projects/components/project-grid';
 
 import type { Section } from '@/lib/api/public-schemas';
 
@@ -16,15 +16,7 @@ export function ProjectsSection({ index, section }: ProjectsSectionProps) {
   const hasMore = section.totalCount > section.items.length;
   return (
     <PageSection id="projects" index={index} label="projects" heading={section.heading}>
-      {section.items.length > 0 && (
-        <ul className="grid gap-5 md:grid-cols-2">
-          {section.items.map((project) => (
-            <li key={project.id} className="flex">
-              <ProjectCard project={project} />
-            </li>
-          ))}
-        </ul>
-      )}
+      {section.items.length > 0 && <ProjectGrid projects={section.items} />}
       {hasMore && (
         <Link
           href="/projects"

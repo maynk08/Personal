@@ -36,7 +36,7 @@ export function HeroSection({ profile, hasContact }: HeroSectionProps) {
             >
               <FileTextIcon aria-hidden="true" className="size-4" />
               Résumé (PDF)
-              <span className="sr-only">(opens in a new tab)</span>
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           )}
           {hasContact && (

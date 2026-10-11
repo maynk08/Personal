@@ -41,7 +41,8 @@ export default defineConfig([
   {
     // Next.js requires default exports from its special files and from config files.
     files: [
-      'src/app/**/{page,layout,loading,error,global-error,not-found,template,default}.tsx',
+      'src/app/**/{page,layout,loading,error,global-error,not-found,template,default,opengraph-image}.tsx',
+      'src/app/{sitemap,robots}.ts',
       'src/proxy.ts',
       '*.config.{ts,mts,mjs}',
       'eslint.config.mjs',

@@ -17,6 +17,8 @@ vi.mock('next/navigation', async (importOriginal) =>
 const site: Site = {
   theme: 'dark',
   name: 'Ada Lovelace',
+  headline: 'Full-stack engineer',
+  photo: null,
   nav: [
     { key: 'hero', heading: 'Home' },
     { key: 'about', heading: 'About me' },

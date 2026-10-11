@@ -6,9 +6,18 @@ import { ExperienceSection } from '@/features/experience/components/experience-s
 import { HeroSection } from '@/features/hero/components/hero-section';
 import { getHome } from '@/features/home/queries';
 import { ProjectsSection } from '@/features/projects/components/projects-section';
+import { getSite } from '@/features/site/queries';
 import { SkillsSection } from '@/features/skills/components/skills-section';
+import { JsonLd, profilePageJsonLd } from '@/lib/seo/json-ld';
+import { pageMetadata, siteDescription } from '@/lib/seo/metadata';
 
 import type { Profile, Section } from '@/lib/api/public-schemas';
+import type { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  return pageMetadata({ site, title: null, description: siteDescription(site), path: '/' });
+}
 
 function renderSection(section: Section, index: number, profile: Profile, hasContact: boolean) {
   switch (section.key) {
@@ -39,6 +48,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col">
+      <JsonLd data={profilePageJsonLd(profile)} />
       {sections.map((section) => renderSection(section, numbered.indexOf(section.key) + 1, profile, hasContact))}
     </div>
   );

@@ -132,3 +132,19 @@
     opacity: 0;
   }
 }
+
+/*
+ * Highlighted code (project descriptions) carries colours for both themes as variables; the page's theme picks one.
+ * The block's background is the surface token, not the highlighter theme's.
+ */
+[data-theme='dark'] .shiki span {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style);
+  font-weight: var(--shiki-dark-font-weight);
+}
+
+[data-theme='light'] .shiki span {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style);
+  font-weight: var(--shiki-light-font-weight);
+}

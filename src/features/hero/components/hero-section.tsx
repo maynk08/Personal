@@ -22,7 +22,10 @@ export function HeroSection({ profile, hasContact }: HeroSectionProps) {
           </p>
         )}
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-medium tracking-tight text-balance sm:text-6xl">{profile.name}</h1>
+          {/* Before the profile is first saved there is no name; the page keeps a real heading, like the header. */}
+          <h1 className="text-4xl font-medium tracking-tight text-balance sm:text-6xl">
+            {profile.name === '' ? 'Portfolio' : profile.name}
+          </h1>
           {profile.headline !== '' && <p className="text-lg text-muted sm:text-xl">{profile.headline}</p>}
         </div>
         <TypingLine phrases={profile.heroPhrases} />

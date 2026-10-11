@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { AboutSection } from '@/features/about/components/about-section';
 import { ContactForm } from '@/features/contact/components/contact-form';
+import { HeroSection } from '@/features/hero/components/hero-section';
 import { TypingLine } from '@/features/hero/components/typing-line';
 import { ProjectCard } from '@/features/projects/components/project-card';
 
@@ -157,5 +158,19 @@ describe('ContactForm', () => {
 
     expect(await screen.findByRole('status')).toHaveTextContent('Thanks, Grace! Your message is on its way');
     expect(screen.queryByRole('button', { name: 'Send message' })).not.toBeInTheDocument();
+  });
+});
+
+describe('HeroSection', () => {
+  it('shows the name as the page heading', () => {
+    render(<HeroSection profile={profile} hasContact={false} />);
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Ada Lovelace' })).toBeInTheDocument();
+  });
+
+  it('keeps a real page heading before the profile has a name', () => {
+    render(<HeroSection profile={{ ...profile, name: '' }} hasContact={false} />);
+
+    expect(screen.getByRole('heading', { level: 1, name: 'Portfolio' })).toBeInTheDocument();
   });
 });
